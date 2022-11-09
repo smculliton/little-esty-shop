@@ -1,4 +1,3 @@
-require './app/poros/pr'
 require './app/poros/github_service'
 
 
