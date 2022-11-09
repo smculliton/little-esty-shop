@@ -1,6 +1,5 @@
 class InvoiceItemsController < ApplicationController
 
-
   def update
     @invoice_items = InvoiceItem.find(params[:id])
     @merchant = @invoice_items.item.merchant

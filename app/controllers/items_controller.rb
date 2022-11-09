@@ -10,7 +10,6 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
   end
 
-
   def edit
     @item = Item.find(params[:id])
   end
@@ -41,6 +40,4 @@ class ItemsController < ApplicationController
   def item_params
     params.permit(:name, :description, :unit_price, :status)
   end
-
-
 end
