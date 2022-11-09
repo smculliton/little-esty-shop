@@ -1,4 +1,3 @@
-require './app/poros/commit'
 require './app/poros/github_service'
 
 class CommitSearch
