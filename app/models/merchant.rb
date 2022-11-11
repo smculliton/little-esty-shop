@@ -2,6 +2,7 @@ class Merchant < ApplicationRecord
   has_many :items
   has_many :invoices, through: :items
   has_many :transactions, through: :invoices
+  has_many :bulk_discounts
 
   def self.all_enabled
     where(status: 'Enabled')
