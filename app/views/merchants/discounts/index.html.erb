@@ -1,8 +1,9 @@
 <h1><%= @merchant.name %></h1>
+
+<%= button_to 'Create New Bulk Discount', new_merchant_discount_path(@merchant), method: :get %>
+
 <h2>Bulk Discounts:</h2>
-
 <% @merchant.bulk_discounts.each do |discount| %>
-
     <section id="discount-<%= discount.id %>">
       <p><%= discount.percentage %>% off <%= discount.threshold %> items or more</p>
       <p><%= link_to 'See Details', merchant_discount_path(@merchant, discount) %></p>
