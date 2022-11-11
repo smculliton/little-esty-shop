@@ -21,7 +21,7 @@ RSpec.describe 'the merchant discounts show page' do
   it 'has a form that updates the percentage and quantity threshold' do 
     fill_in 'Percent Off', with: 40
     fill_in 'Item Threshold', with: 30
-    click_button 'Create Bulk Discount'
+    click_button 'Edit Bulk Discount'
 
     expect(current_path).to eq(merchant_discount_path(@edibles, @discount1))
     expect(page).to have_content("40%")
