@@ -16,8 +16,8 @@ RSpec.describe 'the bulk discount new page' do
   end
 
   it 'has a form to create a new discount' do 
-    fill_in 'Percent Off', with: '90'
-    fill_in 'Item Threshold', with: '30'
+    fill_in 'Percent Off', with: 90
+    fill_in 'Item Threshold', with: 30
     click_button 'Create Bulk Discount'
 
     expect(current_path).to eq(merchant_discounts_path(@edibles))
