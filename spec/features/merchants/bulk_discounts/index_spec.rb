@@ -37,9 +37,19 @@ RSpec.describe 'the bulk discounts index' do
 
   it 'each bulk discount links to that discounts show page' do 
     within "#discount-#{@discount1.id}" do 
-      click_link "See Details"
+      click_button "See Details"
     end
 
     expect(current_path).to eq(merchant_discount_path(@edibles, @discount1))
+  end
+
+  it 'has a button next to each discount to delete that discount' do 
+    within "#discount-#{@discount1.id}" do 
+      click_button 'Delete'
+    end
+
+    expect(current_path).to eq(merchant_discounts_path(@edibles))
+    expect(page).to_not have_content("#{@discount1.percentage}%")
+    expect(page).to_not have_content("#{@discount1.threshold} items")
   end
 end
