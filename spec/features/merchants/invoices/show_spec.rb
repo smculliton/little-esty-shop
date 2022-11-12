@@ -102,4 +102,47 @@ RSpec.describe "Merchant Invoice Show" do
       end
     end
   end
+
+  describe 'discounted revenue' do 
+    it 'shows total revenue after discounts have been applied' do 
+      @merchant1.bulk_discounts.create!(percentage: 10, threshold: 1)
+
+      visit merchant_invoice_path(@merchant1, @invoice1)
+
+      expect(page).to have_content("Discounted Revenue: 14000")
+    end
+  end
+
+  describe 'bulk discounts links' do 
+    it 'provides a link to discounts applied to each item' do 
+      discount1 = @merchant1.bulk_discounts.create!(percentage: 20, threshold: 2)
+      discount2 = @merchant1.bulk_discounts.create!(percentage: 10, threshold: 1)
+
+      visit merchant_invoice_path(@merchant1, @invoice1)
+
+      within "#invoice_item-#{@invoice_item1.id}" do 
+        click_link "Bulk Discount Information"
+      end
+
+      expect(current_path).to eq(merchant_discount_path(@merchant1, discount2))
+
+      visit merchant_invoice_path(@merchant1, @invoice1)
+
+      within "#invoice_item-#{@invoice_item2.id}" do 
+        click_link "Bulk Discount Information"
+      end
+
+      expect(current_path).to eq(merchant_discount_path(@merchant1, discount1))
+    end
+
+    it 'does not provide a link if no discount is applied' do 
+      discount1 = @merchant1.bulk_discounts.create!(percentage: 20, threshold: 2)
+
+      visit merchant_invoice_path(@merchant1, @invoice1)
+      
+      within "#invoice_item-#{@invoice_item1.id}" do 
+        expect(page).to_not have_link("Bulk Discount Information")
+      end
+    end
+  end
 end
