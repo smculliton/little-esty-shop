@@ -136,10 +136,10 @@ RSpec.describe "Merchant Invoice Show" do
     end
 
     it 'does not provide a link if no discount is applied' do 
-      discount1 = @merchant1.bulk_discounts.create!(percentage: 20, threshold: 2)
+      @merchant1.bulk_discounts.create!(percentage: 20, threshold: 2)
 
       visit merchant_invoice_path(@merchant1, @invoice1)
-      
+
       within "#invoice_item-#{@invoice_item1.id}" do 
         expect(page).to_not have_link("Bulk Discount Information")
       end
