@@ -15,14 +15,13 @@
 <p>Invoice's Customer Name: <%= @invoice.customer.name %></p>
 
 
-<%@invoice.items.each do |item|%>
-  <p>Item: <%=item.name%></p>
-  <p>Quantity: <%item.invoice_items.each do |invoice_item| %>
-    <%= invoice_item.quantity%></p>
+<%@invoice.invoice_items.each do |invoice_item|%>
+  <p><strong>Item: <%=invoice_item.item.name%></strong></p>
+    <p>Quantity: <%= invoice_item.quantity%></p>
     <p>Price: <%=invoice_item.unit_price%></p>
     <p>Status: <%=invoice_item.status%></p>
-
-
-  <%end%>
+    <p>Invoice Number: <%=invoice_item.invoice_id%>
+    <hr>
 <%end%>
+
 <p>Total Revenue: <%=@invoice.total_revenue%></p>
