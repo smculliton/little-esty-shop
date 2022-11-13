@@ -1,3 +1,5 @@
+require 'date'
+
 class Holiday
   attr_reader :name, :date
 

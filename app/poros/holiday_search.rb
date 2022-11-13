@@ -8,5 +8,3 @@ class HolidaySearch
     end
   end 
 end
-
-HolidaySearch.create_holidays
