@@ -9,5 +9,9 @@
       <p><%= button_to 'See Details', merchant_discount_path(@merchant, discount), method: :get %></p>
       <p><%= button_to 'Delete', merchant_discount_path(@merchant, discount), method: :delete %></p>
     </section>
+<% end %>
 
+<h2>Upcoming Holidays:</h2>
+<% @holidays.each do |holiday| %>
+  <p><strong><%= holiday.name %></strong> - <%= holiday.date.strftime("%B %d, %Y") %></p>
 <% end %>

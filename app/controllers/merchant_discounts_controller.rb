@@ -1,3 +1,5 @@
+require './app/poros/holiday_search'
+
 class MerchantDiscountsController < ApplicationController
   def self.controller_path
     'merchants/discounts'
@@ -5,6 +7,7 @@ class MerchantDiscountsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
+    @holidays = HolidaySearch.create_holidays
   end
 
   def show
