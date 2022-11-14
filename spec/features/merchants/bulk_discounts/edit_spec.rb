@@ -32,4 +32,14 @@ RSpec.describe 'the merchant discounts show page' do
     expect(page).to have_field('Percent Off', with: 20)
     expect(page).to have_field('Item Threshold', with: 20)
   end
+
+  describe 'sad paths' do
+    it 'redirects to edit page and shows error if invalid attributes entered' do 
+      fill_in 'Item Threshold', with: 0
+      click_button 'Edit Bulk Discount'
+
+      expect(current_path).to eq(edit_merchant_discount_path(@edibles, @discount1))
+      expect(page).to have_content('Fields missing or invalid')
+    end
+  end
 end

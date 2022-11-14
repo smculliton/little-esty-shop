@@ -49,9 +49,13 @@ class MerchantDiscountsController < ApplicationController
   def update
     @merchant = Merchant.find(params[:merchant_id])
     @discount = BulkDiscount.find(params[:id])
-    @discount.update(discount_params)
-
-    redirect_to merchant_discount_path(@merchant, @discount)
+    
+    if @discount.update(discount_params)
+      redirect_to merchant_discount_path(@merchant, @discount)
+    else
+      flash[:notice] = 'Fields missing or invalid'
+      redirect_to edit_merchant_discount_path(@merchant, @discount)
+    end
   end
 
   private
