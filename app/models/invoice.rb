@@ -10,17 +10,20 @@ class Invoice < ApplicationRecord
     invoice_items.sum("quantity * unit_price")
   end
 
-  def discounted_revenue # should refactor this into three methods
-    sql = invoice_items.select('max(invoice_items.quantity * invoice_items.unit_price * (bulk_discounts.percentage / 100)) as discount')
-                       .joins(:bulk_discounts)
-                       .group(:id)
-                       .where('invoice_items.quantity >= bulk_discounts.threshold')
-                       .to_sql
+  def best_invoice_item_discounts
+    invoice_items.select('max(invoice_items.quantity * invoice_items.unit_price * (bulk_discounts.percentage / 100)) as discount')
+                 .joins(:bulk_discounts)
+                 .group(:id)
+                 .where('invoice_items.quantity >= bulk_discounts.threshold')
+  end
 
-    discount = InvoiceItem.select('sum(discount) as total_discount').from("(#{sql}) as discounts").take.total_discount
-    discount = 0 if discount == nil
+  def discount
+    InvoiceItem.select('sum(discount) as total_discount').from("(#{best_invoice_item_discounts.to_sql}) as discounts").take.total_discount
+  end
 
-    return total_revenue if discount == nil
+  def discounted_revenue
+    return total_revenue if discount.nil?
+
     total_revenue - discount
   end
 
