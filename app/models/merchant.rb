@@ -49,4 +49,7 @@ class Merchant < ApplicationRecord
     .created_at
   end
 
+  def holiday_discount(holiday)
+    bulk_discounts.find_by(holiday: holiday)
+  end
 end

@@ -87,5 +87,19 @@ RSpec.describe 'the bulk discounts index' do
 
       expect(page).to have_content("Thanksgiving Day discount")
     end
+
+    it 'replaces create discount button with view discount button if holiday discount already created' do 
+      td_discount = @edibles.bulk_discounts.create!(name: 'TD discount', percentage: 10.0, threshold: 2, holiday: 'Thanksgiving Day')
+
+      visit merchant_discounts_path(@edibles)
+
+      within '#0' do 
+        expect(page).to_not have_button('Create Discount')
+        click_button 'View Discount'
+      end
+
+      expect(current_path).to eq(merchant_discount_path(@edibles, td_discount))
+      expect(page).to have_content(td_discount.name)
+    end
   end
 end

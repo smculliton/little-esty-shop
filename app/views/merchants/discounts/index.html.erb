@@ -17,6 +17,10 @@
 <% @holidays.each_with_index do |holiday, i| %>
   <section id="<%= i %>">
     <p><strong><%= holiday.name %></strong> - <%= holiday.date.strftime("%B %d, %Y") %></p>
-    <%= button_to 'Create Discount', new_merchant_discount_path(@merchant), method: :get, params: { holiday: holiday.name } %>
+    <% if @merchant.holiday_discount(holiday.name) %>
+      <%= button_to 'View Discount', merchant_discount_path(@merchant, @merchant.holiday_discount(holiday.name)), method: :get %>
+    <% else %>
+      <%= button_to 'Create Discount', new_merchant_discount_path(@merchant), method: :get, params: { holiday: holiday.name } %>
+    <% end %>
   </section>
 <% end %>

@@ -147,6 +147,15 @@ RSpec.describe Merchant do
         expect(@merchant1.incomplete_invoices).to eq([@invoice3, @invoice4, @invoice5, invoice6])
       end
     end
+
+    describe '#holiday_discount' do 
+      it 'returns holiday discount by holiday name or nil if it doesnt exist' do
+        td_discount = @merchant1.bulk_discounts.create!(name: 'TD discount', percentage: 10.0, threshold: 2, holiday: 'Thanksgiving Day')
+
+        expect(@merchant1.holiday_discount('Thanksgiving Day')).to eq(td_discount)
+        expect(@merchant1.holiday_discount('Christmas Day')).to eq(nil)
+      end
+    end
   end
 
   it 'doesnt count transactions for other merchants' do 
