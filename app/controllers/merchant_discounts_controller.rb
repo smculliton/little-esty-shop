@@ -1,3 +1,5 @@
+require './app/poros/holiday_search'
+
 class MerchantDiscountsController < ApplicationController
   def self.controller_path
     'merchants/discounts'
@@ -5,6 +7,7 @@ class MerchantDiscountsController < ApplicationController
 
   def index
     @merchant = Merchant.find(params[:merchant_id])
+    @holidays = HolidaySearch.create_holidays
   end
 
   def show
@@ -15,6 +18,7 @@ class MerchantDiscountsController < ApplicationController
   def new 
     @merchant = Merchant.find(params[:merchant_id])
     @discount = @merchant.bulk_discounts.new
+    @holiday = params[:holiday]
   end
 
   def create 
@@ -48,6 +52,6 @@ class MerchantDiscountsController < ApplicationController
 
   private
   def discount_params
-    params.require(:bulk_discount).permit(:percentage, :threshold)
+    params.require(:bulk_discount).permit(:percentage, :threshold, :name, :holiday)
   end
 end

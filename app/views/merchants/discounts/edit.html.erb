@@ -3,7 +3,7 @@
 
 <%= form_with model: @discount, url: merchant_discount_path(@merchant, @discount), local: true do |f| %>
   <%= f.label :percentage, 'Percent Off' %>
-  <%= f.number_field :percentage, in: 1..100, value: @discount.percentage %>
+  <%= f.number_field :percentage, in: 1..100, value: @discount.percentage.to_i %>
 
   <%= f.label :threshold, 'Item Threshold' %>
   <%= f.number_field :threshold, value: @discount.threshold %>

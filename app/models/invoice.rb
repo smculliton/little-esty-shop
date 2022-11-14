@@ -20,6 +20,7 @@ class Invoice < ApplicationRecord
     discount = InvoiceItem.select('sum(discount) as total_discount').from("(#{sql}) as discounts").take.total_discount
     discount = 0 if discount == nil
 
+    return total_revenue if discount == nil
     total_revenue - discount
   end
 
