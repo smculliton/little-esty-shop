@@ -11,9 +11,9 @@ RSpec.describe 'the bulk discounts show page' do
   end
 
   it 'shows the quantity threshold and percentage discount' do 
-    expect(page).to have_content(@discount1.percentage)
+    expect(page).to have_content(@discount1.percentage.to_i)
     expect(page).to have_content(@discount1.threshold)
-    expect(page).to_not have_content(@discount2.percentage)
+    expect(page).to_not have_content(@discount2.percentage.to_i)
     expect(page).to_not have_content(@discount2.threshold)
   end
 end

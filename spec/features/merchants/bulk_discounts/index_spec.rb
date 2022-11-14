@@ -31,16 +31,16 @@ RSpec.describe 'the bulk discounts index' do
   end
 
   it 'it lists all merchants bulk discounts and their attributes' do 
-    expect(page).to_not have_content("#{@discount3.percentage}%")
+    expect(page).to_not have_content("#{@discount3.percentage.to_i}%")
     expect(page).to_not have_content("#{@discount3.threshold} items")
 
     within "#discount-#{@discount1.id}" do 
-      expect(page).to have_content("#{@discount1.percentage}%")
+      expect(page).to have_content("#{@discount1.percentage.to_i}%")
       expect(page).to have_content("#{@discount1.threshold} items")
     end
 
     within "#discount-#{@discount2.id}" do 
-      expect(page).to have_content("#{@discount2.percentage}%")
+      expect(page).to have_content("#{@discount2.percentage.to_i}%")
       expect(page).to have_content("#{@discount2.threshold} items")
     end
   end
