@@ -5,13 +5,18 @@
 <h2>Bulk Discounts:</h2>
 <% @merchant.bulk_discounts.each do |discount| %>
     <section id="discount-<%= discount.id %>">
-      <p><%= discount.percentage %>% off <%= discount.threshold %> items or more</p>
+      <p><strong><%= discount.name %></p></strong>
+      <p><%= discount.percentage.to_i %>% off <%= discount.threshold %> items or more</p>
       <p><%= button_to 'See Details', merchant_discount_path(@merchant, discount), method: :get %></p>
       <p><%= button_to 'Delete', merchant_discount_path(@merchant, discount), method: :delete %></p>
+      <hr>
     </section>
 <% end %>
 
 <h2>Upcoming Holidays:</h2>
-<% @holidays.each do |holiday| %>
-  <p><strong><%= holiday.name %></strong> - <%= holiday.date.strftime("%B %d, %Y") %></p>
+<% @holidays.each_with_index do |holiday, i| %>
+  <section id="<%= i %>">
+    <p><strong><%= holiday.name %></strong> - <%= holiday.date.strftime("%B %d, %Y") %></p>
+    <%= button_to 'Create Discount', new_merchant_discount_path(@merchant), method: :get, params: { holiday: holiday.name } %>
+  </section>
 <% end %>
