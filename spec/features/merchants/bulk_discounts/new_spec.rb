@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'webmock/rspec'
 
 RSpec.describe 'the bulk discount new page' do 
   before(:each) do 
@@ -32,5 +33,31 @@ RSpec.describe 'the bulk discount new page' do
     expect(current_path).to eq(merchant_discounts_path(@edibles))
     expect(page).to have_content("90%")
     expect(page).to have_content("30 items")
+  end
+
+  describe 'sad paths' do 
+    it 'redirects back to page with error if percentage is 100' do
+      fill_in 'Percent Off', with: 100
+      click_button 'Create Bulk Discount'
+
+      expect(current_path).to eq(new_merchant_discount_path(@edibles))
+      expect(page).to have_content('Fields missing or invalid')
+    end
+
+    it 'redirects back to page with error if percentage is 0' do
+      fill_in 'Percent Off', with: 0
+      click_button 'Create Bulk Discount'
+
+      expect(current_path).to eq(new_merchant_discount_path(@edibles))
+      expect(page).to have_content('Fields missing or invalid')
+    end
+
+    it 'redirects back to page with error if item threshold is 0' do
+      fill_in 'Item Threshold', with: 0
+      click_button 'Create Bulk Discount'
+
+      expect(current_path).to eq(new_merchant_discount_path(@edibles))
+      expect(page).to have_content('Fields missing or invalid')
+    end
   end
 end

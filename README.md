@@ -2,10 +2,7 @@ TO DO:
 
 To Get Threes
 - double check there are no MVC violations/ routes are restful
-- test coverage to 100%
 - add sad path testing where applicaple
-
-
 
 To Get Fours
 - create partials

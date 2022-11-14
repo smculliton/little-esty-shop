@@ -22,11 +22,15 @@ class MerchantDiscountsController < ApplicationController
   end
 
   def create 
-    # Needs sad path/ edge case testing
     @merchant = Merchant.find(params[:merchant_id])
-    @discount = @merchant.bulk_discounts.create!(discount_params)
-
-    redirect_to merchant_discounts_path(@merchant)
+    discount = @merchant.bulk_discounts.new(discount_params)
+    
+    if discount.save
+      redirect_to merchant_discounts_path(@merchant)
+    else
+      flash[:notice] = 'Fields missing or invalid'
+      redirect_to new_merchant_discount_path
+    end
   end
 
   def destroy
