@@ -87,7 +87,7 @@ RSpec.describe 'Admin Invoice Show Page' do
 
       visit admin_invoice_path(@invoice1)
 
-      expect(page).to have_content("Discounted Revenue: #{@invoice1.discounted_revenue}")
+      expect(page).to have_content("Discounted Revenue: #{@invoice1.discounted_revenue.to_i}")
     end
   end
 end
