@@ -21,8 +21,6 @@ RSpec.describe Merchant do
     @item4 = @merchant2.items.create!(name: 'Eraser', description: 'Its a Lisa Frank Trapper Keeper', unit_price: 5000)
     @item5 = @merchant2.items.create!(name: 'Folder', description: 'Its a Lisa Frank Trapper Keeper', unit_price: 50)
     @item6 = @merchant2.items.create!(name: 'Kevin Ta Action Figure', description: 'The coolest action figure around!', unit_price: 10000)
-    
-
 
     @customer1 = Customer.create!(first_name: 'Dandy', last_name: 'Dan')
     @customer2 = Customer.create!(first_name: 'Rockin', last_name: 'Rick')
@@ -154,6 +152,12 @@ RSpec.describe Merchant do
 
         expect(@merchant1.holiday_discount('Thanksgiving Day')).to eq(td_discount)
         expect(@merchant1.holiday_discount('Christmas Day')).to eq(nil)
+      end
+    end
+
+    describe '#distinct_invoices' do 
+      it 'returns a unique list of invoices of the merchant' do
+        expect(@merchant1.distinct_invoices).to eq([@invoice1, @invoice2, @invoice3, @invoice4, @invoice5])
       end
     end
   end

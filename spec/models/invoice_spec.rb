@@ -84,4 +84,12 @@ RSpec.describe Invoice do
       end
     end
   end
+
+  describe 'class methods' do 
+    describe '#unshipped_items' do 
+      it 'it returns invoices that have unshipped items' do
+        expect(Invoice.unshipped_items).to eq([@invoice1, @invoice2])
+      end
+    end
+  end
 end

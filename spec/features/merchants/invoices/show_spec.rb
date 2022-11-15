@@ -109,7 +109,7 @@ RSpec.describe "Merchant Invoice Show" do
 
       visit merchant_invoice_path(@merchant1, @invoice1)
 
-      expect(page).to have_content("Discounted Revenue: 14000")
+      expect(page).to have_content('Discounted Revenue: 13500')
     end
   end
 
