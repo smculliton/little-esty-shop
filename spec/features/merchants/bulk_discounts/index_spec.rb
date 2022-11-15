@@ -27,7 +27,13 @@ RSpec.describe 'the bulk discounts index' do
 
     expect(page).to have_link('My Discounts')
     click_link('My Discounts')
-    expect(current_path).to eq("/merchants/#{@edibles.id}/discounts")
+    expect(current_path).to eq(merchant_discounts_path(@edibles))
+  end
+
+  it 'has a link back to the merchants dashoard page' do 
+    click_link 'Back to Dashboard'
+
+    expect(current_path).to eq("/merchants/#{@edibles.id}/dashboard")
   end
 
   it 'it lists all merchants bulk discounts and their attributes' do 
